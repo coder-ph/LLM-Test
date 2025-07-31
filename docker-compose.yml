@@ -1,0 +1,30 @@
+services:
+  db:
+    image: posgres:16-alpine
+    restart: always
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    ports:
+      - "5432:5432"
+    volumes:
+      - pg_data:var/lib/postgresql/pg_data
+
+  app:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      GEMINI_API_KEY: ${GEMINI_API_KEY}
+      POSGRES_USER: ${POSGRES_USER}
+      POSTGRES_PASSWORD:  ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_HOST: db
+      POSTGRES_PORT: ${POSTGRES_PORT}
+    depends_on:
+      - db
+
+    command: sh -c "alembic upgrade head && uvicorn app.main:app--host 0.0.0.0 --port 8000"
+  volumes:
+    pg_data
