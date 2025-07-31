@@ -1,30 +1,43 @@
+
+
 services:
   db:
-    image: posgres:16-alpine
+    image: postgres:16-alpine
+    container_name: llm_postgres
     restart: always
     environment:
-      POSTGRES_DB: ${POSTGRES_DB}
-      POSGRES_USER: ${POSTGRES_USER}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_USER: otty
+      POSTGRES_PASSWORD: 34561625Pph
+      POSTGRES_DB: llm
     ports:
       - "5432:5432"
     volumes:
-      - pg_data:var/lib/postgresql/pg_data
+      - pgdata:/var/lib/postgresql/data
 
   app:
     build: .
-    ports:
-      - "8000:8000"
-    environment:
-      GEMINI_API_KEY: ${GEMINI_API_KEY}
-      POSGRES_USER: ${POSGRES_USER}
-      POSTGRES_PASSWORD:  ${POSTGRES_PASSWORD}
-      POSTGRES_DB: ${POSTGRES_DB}
-      POSTGRES_HOST: db
-      POSTGRES_PORT: ${POSTGRES_PORT}
+    container_name: llm_app
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+    volumes:
+      - .:/app
     depends_on:
       - db
+    environment:
+      DATABASE_URL: postgresql+asyncpg://otty:34561625Pph@db:5432/llm
+    ports:
+      - "8000:8000"
 
-    command: sh -c "alembic upgrade head && uvicorn app.main:app--host 0.0.0.0 --port 8000"
-  volumes:
-    pg_data
+  alembic:
+    build: .
+    container_name: llm_alembic
+    depends_on:
+      - db
+    command: alembic upgrade head
+    volumes:
+      - .:/app
+    working_dir: /app
+    environment:
+      DATABASE_URL: postgresql+asyncpg://otty:34561625Pph@db:5432/llm
+
+volumes:
+  pgdata:

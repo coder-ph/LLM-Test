@@ -11,7 +11,7 @@ class Settings(BaseSettings):
     
     POSTGRES_USER: str = Field('user')
     POSTGRES_PASSWORD: str = Field("password")
-    POSGRES_DB : str = Field('qna_db')
+    POSGRES_DB : str = Field('llm')
     POSTGRES_HOST: str = Field('db')
     POSTGRES_PORT: str = Field('5432')
     

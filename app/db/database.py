@@ -1,17 +1,17 @@
-from sqlachemy.ext.asyncio import create_async_engine, AsyncSession, async_sessionmaker
-from sqlalchemy.ext.declerative import declerative_base
-from sqlalchemy.pool import NUllPool
+from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession, async_sessionmaker
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.pool import NullPool
 from app.core.config import settings
 import logging
 
-logger = logging()
+logger = logging.getLogger(__name__)
 
-Base = declerative_base()
+Base = declarative_base()
 
 engine = create_async_engine(
     settings.DATABASE_URL,
     echo=False,
-    poolclass=NUllPool,
+    poolclass=NullPool,
     future = True
 )
 

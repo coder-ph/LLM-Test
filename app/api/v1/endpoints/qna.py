@@ -9,7 +9,7 @@ import logging
 from app.schemas.qna import QueryRequest, QueryResponse, HistoryItem, QueryHistoryResponse, LLMResponseContent
 from app.crud.query import create_query_history, get_query_history_by_user_id
 from app.db.database import get_db
-from app.services.llm import call_gemini_llm, construct_llm_prompt
+from app.api.services.llm import call_gemini_llm, construct_llm_prompt
 from app.core.config import settings
 
 logger = logging.getLogger(__name__)
@@ -18,7 +18,7 @@ router = APIRouter()
 
 @router.post("/query", response_model=QueryResponse, status_code=status.HTTP_200_OK)
 async def handle_query(request_data: QueryRequest, db_session: AsyncSession = Depends(get_db)):
-    """Handles a user's question, sends it to the LLM"""
+    """Handles a user's question, sends it to the LLM for response. Response stored in the database"""
     logger.info(f"Received query: '{request_data.query}' from user_id: '{request_data.user_id}'")
 
     if not settings.GEMINI_API_KEY:
