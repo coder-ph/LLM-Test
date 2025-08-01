@@ -8,7 +8,7 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(level
 logger = logging.getLogger()
 
 app = FastAPI(
-    title= "Interctive Q&A Backedn",
+    title= "Interactive Q&A Backend",
     description= '''backend for an interactive Q&A system, built with FastAPI and integrated with a Large Language Model (LLM)''',
     version='1.0.0',
     redoc_url='/redoc',

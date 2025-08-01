@@ -3,7 +3,7 @@ from typing import List, Optional
 from datetime import datetime
 
 class QueryRequest(BaseModel):
-    query: str = Field(..., min_length=5, max_length=1000)
+    query: str = Field(..., min_length=5, max_length=500)
     user_id :str = Field(None)
     
 class LLMResponseContent(BaseModel):

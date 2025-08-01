@@ -1,14 +1,14 @@
-
-
 services:
   db:
     image: postgres:16-alpine
     container_name: llm_postgres
     restart: always
+    env_file:
+      - .env
     environment:
-      POSTGRES_USER: otty
-      POSTGRES_PASSWORD: 34561625Pph
-      POSTGRES_DB: llm
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
     ports:
       - "5432:5432"
     volumes:
@@ -17,27 +17,37 @@ services:
   app:
     build: .
     container_name: llm_app
-    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+    command: sh -c "alembic upgrade head && uvicorn app.main:app --host 0.0.0.0 --port 8000"
     volumes:
       - .:/app
     depends_on:
       - db
+    env_file:
+      - .env
     environment:
-      DATABASE_URL: postgresql+asyncpg://otty:34561625Pph@db:5432/llm
+      DATABASE_URL: postgresql+asyncpg://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB}
+      GEMINI_API_KEY: ${GEMINI_API_KEY}
     ports:
       - "8000:8000"
 
-  alembic:
-    build: .
-    container_name: llm_alembic
+  frontend:
+    build:
+      context: ./Frontend/llm_frontend
+      dockerfile: Dockerfile
+    container_name: llm_frontend
     depends_on:
-      - db
-    command: alembic upgrade head
+      - app
+    env_file:
+      - .env
+    ports:
+      - "3000:3000"
     volumes:
-      - .:/app
-    working_dir: /app
+      - ./frontend:/app
+      - /app/node_modules
     environment:
-      DATABASE_URL: postgresql+asyncpg://otty:34561625Pph@db:5432/llm
+      NODE_ENV: development
+      PORT: 3000
 
 volumes:
   pgdata:
+
