@@ -1,9 +1,9 @@
-// your_project_name/frontend/app/page.tsx
+
 'use client';
 
 import { useState, useRef, useEffect } from 'react';
 import classNames from 'classnames';
-import { HistoryItem, QueryResponse } from './types'; // We will create this file
+import { HistoryItem, QueryResponse } from './types'; 
 import Header from './components/Header';
 import ChatWindow from './components/ChatWindow';
 import QueryInput from './components/QueryInput';
