@@ -48,7 +48,9 @@ services:
       - .env
     environment:
       NODE_ENV: development
+      BACKEND_URL: http://app:8000
       PORT: 3000
+      NEXT_PUBLIC_API_URL: http://localhost:8000 
 
 volumes:
   pgdata:

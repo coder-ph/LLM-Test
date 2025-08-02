@@ -8,7 +8,7 @@ export interface QueryResponse {
         relevant_travel_advisories?: string[];
         general_response?: string;
     };
-    query_id: string;
+    session_id: string;
     user_id: string;
     timestamp: string;
 }
@@ -16,7 +16,7 @@ export interface QueryResponse {
 export interface HistoryItem {
     query: string;
     ai_response: string;
-    query_id: string;
+    session_id: string;
     user_id: string;
     timestamp: string;
 }

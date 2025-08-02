@@ -1,4 +1,4 @@
-# your_project_name/app/api/v1/endpoints/qna.py
+
 from fastapi import APIRouter, Depends, status, HTTPException
 from typing import List, Optional, Dict, Any
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -18,7 +18,10 @@ router = APIRouter()
 
 @router.post("/query", response_model=QueryResponse, status_code=status.HTTP_200_OK)
 async def handle_query(request_data: QueryRequest, db_session: AsyncSession = Depends(get_db)):
-    """Handles a user's question, sends it to the LLM for response. Response stored in the database"""
+    """
+    Handles a user's question, sends it to the LLM, and returns the AI-generated response.
+    Stores the query and response for history in the database.
+    """
     logger.info(f"Received query: '{request_data.query}' from user_id: '{request_data.user_id}'")
 
     if not settings.GEMINI_API_KEY:
@@ -26,7 +29,7 @@ async def handle_query(request_data: QueryRequest, db_session: AsyncSession = De
                             detail="LLM service is not configured. Please set GEMINI_API_KEY.")
 
     current_user_id = request_data.user_id if request_data.user_id else str(uuid.uuid4())
-    query_id = str(uuid.uuid4())
+    session_id = request_data.session_id if request_data.session_id else str(uuid.uuid4())
     timestamp = datetime.now()
 
     try:
@@ -64,17 +67,17 @@ async def handle_query(request_data: QueryRequest, db_session: AsyncSession = De
         await create_query_history(
             db_session,
             user_id=current_user_id,
+            session_id=session_id, # New
             query_text=request_data.query,
             response_text=ai_response_text,
-            query_id=query_id,
             timestamp=timestamp
         )
-        logger.info(f"Query stored in DB for user_id: {current_user_id}")
+        logger.info(f"Query stored in DB for user_id: {current_user_id}, session_id: {session_id}")
 
         return QueryResponse(
             ai_response=ai_response_text,
             structured_data=structured_data,
-            query_id=query_id,
+            session_id=session_id, # New
             user_id=current_user_id,
             timestamp=timestamp
         )
@@ -89,7 +92,9 @@ async def handle_query(request_data: QueryRequest, db_session: AsyncSession = De
 
 @router.get("/history/{user_id}", response_model=QueryHistoryResponse, status_code=status.HTTP_200_OK)
 async def get_query_history_endpoint(user_id: str, db_session: AsyncSession = Depends(get_db)):
-    """Retrieves the history of queries for a given user ID from the database."""
+    """
+    Retrieves the history of queries for a given user ID from the database.
+    """
     logger.info(f"Retrieving history for user_id: {user_id}")
     db_history_items = await get_query_history_by_user_id(db_session, user_id)
 
@@ -97,7 +102,7 @@ async def get_query_history_endpoint(user_id: str, db_session: AsyncSession = De
         HistoryItem(
             query=item.query_text,
             ai_response=item.response_text,
-            query_id=item.query_id,
+            session_id=item.session_id, # New
             user_id=item.user_id,
             timestamp=item.timestamp
         ) for item in db_history_items
