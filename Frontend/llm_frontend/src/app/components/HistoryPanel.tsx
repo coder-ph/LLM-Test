@@ -1,4 +1,4 @@
-// your_project_name/frontend/app/components/HistoryPanel.tsx
+
 import { X } from 'lucide-react';
 import classNames from 'classnames';
 import { HistoryItem } from '../types';
