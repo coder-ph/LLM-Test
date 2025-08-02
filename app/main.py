@@ -15,6 +15,12 @@ app = FastAPI(
     docs_url = '/docs'
 )
 
+origins = [
+    "http://localhost",
+    "http://localhost:3000",
+    "http://app:3000" 
+]
+
 app.include_router(qna.router, tags=['Q&A'], prefix='/api/v1')
 
 @app.on_event('startup')

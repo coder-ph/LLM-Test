@@ -8,6 +8,7 @@ import Header from './components/Header';
 import ChatWindow from './components/ChatWindow';
 import QueryInput from './components/QueryInput';
 import HistoryPanel from './components/HistoryPanel';
+import './globals.css';
 
 export default function App() {
     const [query, setQuery] = useState('');
@@ -40,7 +41,7 @@ export default function App() {
     const fetchHistory = async (id: string) => {
         if (!id) return;
         try {
-            const response = await fetch(`http://localhost:8000/api/v1/history/${id}`);
+            const response = await fetch(`http://app:8000/api/v1/history/${id}`);
             if (!response.ok) {
                 throw new Error('Failed to fetch history');
             }
@@ -70,7 +71,7 @@ export default function App() {
         setError(null);
 
         try {
-            const res = await fetch('http://localhost:8000/api/v1/query', {
+            const res = await fetch('http://app:8000/api/v1/query', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ query: userQuery.query, user_id: userId }),
