@@ -55,7 +55,7 @@ export default function App() {
             }
             const data: { history: HistoryItem[] } = await response.json();
             
-            // Group history items by session ID
+            
             const groupedHistory: { [key: string]: HistoryItem[] } = {};
             data.history.forEach(item => {
                 const sessionId = item.session_id;
@@ -114,7 +114,7 @@ export default function App() {
         setError(null);
 
         try {
-            const res = await fetch('${API_URL}/api/v1/query', {
+            const res = await fetch(`${API_URL}/api/v1/query`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ query: userQuery.query, user_id: userId, session_id: userQuery.session_id }),
@@ -127,7 +127,7 @@ export default function App() {
 
             const data: QueryResponse = await res.json();
             
-            // If it's a new conversation, set the session ID
+            
             if (!currentConversationId) {
                 setCurrentConversationId(data.session_id);
             }

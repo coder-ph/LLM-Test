@@ -1,11 +1,10 @@
 
+
 services:
   app:
     image: coderph/llm-app:latest
     container_name: llm_app
     command: gunicorn -w 4 -k uvicorn.workers.UvicornWorker app.main:app --bind 0.0.0.0:8000
-    depends_on:
-      - db
     environment:
       DATABASE_URL: ${DATABASE_URL}
       GEMINI_API_KEY: ${GEMINI_API_KEY}
