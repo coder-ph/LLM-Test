@@ -50,8 +50,12 @@ export default function App() {
         if (!id) return;
         try {
             const response = await fetch(`https://llm-test-ji0f.onrender.com/api/v1/history/${id}`);
+            console.log("response",response)
+            const text = await response.text()
             if (!response.ok) {
+                console.error("server error", text)
                 throw new Error('Failed to fetch history');
+                
             }
             const data: { history: HistoryItem[] } = await response.json();
             
@@ -119,7 +123,7 @@ export default function App() {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ query: userQuery.query, user_id: userId, session_id: userQuery.session_id }),
             });
-
+            console.log(res)
             if (!res.ok) {
                 const errorData = await res.json();
                 throw new Error(errorData.detail || 'An unknown error occurred.');
