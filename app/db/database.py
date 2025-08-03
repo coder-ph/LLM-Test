@@ -11,7 +11,8 @@ Base = declarative_base()
 
 engine = create_async_engine(
     settings.DATABASE_URL,
-    echo=False,
+    connect_args={"ssl": "require"},
+    echo=True,
     poolclass=NullPool,
     future = True
 )
