@@ -66,12 +66,12 @@ def do_run_migrations(connection: Connection) -> None:
         context.run_migrations()
 
 async def run_migrations_online() -> None:
-    """Run migrations in 'online' mode.
+    """Run migrations in 'online' mode with async engine."""
+    from sqlalchemy.ext.asyncio import create_async_engine
 
-    In this scenario we need to create an Engine
-    and associate a connection with the context.
+    DATABASE_URL = config.get_main_option("sqlalchemy.url")
+    engine = create_async_engine(DATABASE_URL, future=True, echo=True)
 
-    """
-    from app.db.database import engine  # Import your async engine
     async with engine.connect() as connection:
         await connection.run_sync(do_run_migrations)
+
