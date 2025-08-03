@@ -6,4 +6,5 @@ asyncpg
 pydantic-settings
 python-dotenv
 alembic
+asyncpg
 psycopg2-binary
