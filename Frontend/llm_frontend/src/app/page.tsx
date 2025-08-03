@@ -49,11 +49,11 @@ export default function App() {
     const fetchHistory = useCallback(async (id: string) => {
         if (!id) return;
         try {
-            const response = await fetch(`https://llm-test-ji0f.onrender.com/api/v1/history/${id}`);
+            const response = await fetch(`/api/v1/history/${id}`);
             console.log("response",response)
-            const text = await response.text()
+            
             if (!response.ok) {
-                console.error("server error", text)
+                
                 throw new Error('Failed to fetch history');
                 
             }
@@ -118,7 +118,7 @@ export default function App() {
         setError(null);
 
         try {
-            const res = await fetch(`https://llm-test-ji0f.onrender.com/api/v1/query`, {
+            const res = await fetch(`/api/v1/query`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ query: userQuery.query, user_id: userId, session_id: userQuery.session_id }),
