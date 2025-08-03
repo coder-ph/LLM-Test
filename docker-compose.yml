@@ -4,12 +4,10 @@ services:
   app:
     image: coderph/llm-app:latest
     container_name: llm_app
-    # Remove the build context as the image is now pulled from Docker Hub
+
     command: sh -c "alembic upgrade head && uvicorn app.main:app --host 0.0.0.0 --port 8000"
-    depends_on:
-      - db
     environment:
-      # Use the DATABASE_URL provided by Railway
+     
       DATABASE_URL: ${DATABASE_URL}
       GEMINI_API_KEY: ${GEMINI_API_KEY}
     expose:
