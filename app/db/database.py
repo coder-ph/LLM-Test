@@ -9,12 +9,11 @@ logger = logging.getLogger(__name__)
 Base = declarative_base()
 
 engine = create_async_engine(
-    settings.DATABASE_URL,
+    settings.DATABASE_URL + "?sslmode=require",
     echo=False,
     poolclass=NullPool,
-    future = True
+    future=True
 )
-
 AsyncSessionLocal = async_sessionmaker(
     autocommit=False,
     autoflush=False,
