@@ -1,18 +1,16 @@
-# your_project_name/app/main.py
+
 from fastapi import FastAPI, HTTPException, status, Depends
 from fastapi.middleware.cors import CORSMiddleware
 from app.db.database import init_db
-from app.core.config import settings
 import logging
 
-# Import the API router for our Q&A endpoints
+
 from app.api.v1.endpoints import qna
 
-# Configure logging
+
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
 
-# --- FastAPI Application Instance ---
 app = FastAPI(
     title="Interactive Q&A System Backend",
     description="""
@@ -23,9 +21,6 @@ app = FastAPI(
     docs_url="/docs"
 )
 
-# --- CORS Middleware Configuration ---
-# This is crucial for allowing the frontend to communicate with the backend.
-# The 'http://localhost:3000' origin must be explicitly allowed.
 origins = [
      "http://localhost",
     "http://localhost:3000",
@@ -43,10 +38,10 @@ app.add_middleware(
     expose_headers=["*"] 
 )
 
-# --- Include API Routers ---
+
 app.include_router(qna.router, tags=["Q&A"], prefix="/api/v1")
 
-# --- Database Connection Events ---
+
 @app.on_event("startup")
 async def startup_event():
     """
@@ -56,7 +51,7 @@ async def startup_event():
     await init_db()
     logger.info("Database initialized.")
 
-# --- API Endpoints (Core) ---
+
 
 @app.get("/health", status_code=status.HTTP_200_OK)
 async def health_check():

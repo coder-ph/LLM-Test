@@ -1,4 +1,4 @@
-# your_project_name/app/services/llm.py
+
 from fastapi import HTTPException, status
 from typing import Dict, Any
 import httpx
@@ -126,7 +126,7 @@ def construct_llm_prompt(query: str) -> str:
         }}
         """
     else:
-        # General prompt for other types of queries
+        # General prompt 
         return f"""
         You are a concise and helpful AI assistant.
         Please answer the following query: "{query}" with brevity and clarity.

@@ -1,4 +1,4 @@
-// your_project_name/frontend/app/components/HistoryPanel.tsx
+
 import { X, Plus, Menu } from 'lucide-react';
 import classNames from 'classnames';
 import { HistoryItem } from '../types';
@@ -22,7 +22,7 @@ interface HistoryPanelProps {
 const HistoryPanel = ({ isHistoryOpen, onClose, onOpen, history, onLoadHistory, onNewChat }: HistoryPanelProps) => {
     return (
         <Fragment>
-            {/* Collapsed Sidebar View (visible on desktop when sidebar is closed) */}
+            
             <div className={classNames(
                 'fixed top-0 left-0 h-full w-20 bg-white dark:bg-gray-900 border-r dark:border-gray-700 shadow-xl z-50 transform transition-transform duration-300 ease-in-out hidden md:flex flex-col items-center py-4',
                 { '-translate-x-full': isHistoryOpen }

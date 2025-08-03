@@ -11,7 +11,7 @@ interface QueryInputProps {
 
 const QueryInput = ({ query, setQuery, onSubmit, loading }: QueryInputProps) => {
     return (
-        <footer className="fixed bottom-0 left-0 right-0 z-50 bg-white dark:bg-gray-900/70 backdrop-blur-md border-t dark:border-gray-700 shadow-md transition-colors duration-300">
+        <footer className=" bottom-0 left-0 right-0 z-50 bg-white dark:bg-gray-900/70 backdrop-blur-md border-t dark:border-gray-700 shadow-md transition-colors duration-300">
             <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-4">
                 <form onSubmit={onSubmit} className="flex items-center gap-2">
                     <textarea

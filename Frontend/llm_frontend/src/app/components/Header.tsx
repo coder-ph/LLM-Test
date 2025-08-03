@@ -1,4 +1,4 @@
-// your_project_name/frontend/app/components/Header.tsx
+
 import { History, Plus, Menu } from 'lucide-react';
 import classNames from 'classnames';
 
@@ -26,7 +26,7 @@ const Header = ({ onHistoryClick, onNewChatClick, isHistoryOpen }: HeaderProps) 
                     >
                         <Menu className="w-6 h-6" />
                     </button>
-                    <h1 className="text-2xl font-bold tracking-tight">AI Q&A</h1>
+                    <h1 className="text-2xl font-bold tracking-tight">AI Assistant</h1>
                 </div>
                 <div className="flex items-center gap-2">
                     <button

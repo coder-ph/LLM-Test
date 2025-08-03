@@ -1,4 +1,4 @@
-// your_project_name/frontend/app/page.tsx
+
 'use client';
 
 import { useState, useRef, useEffect, useCallback } from 'react';
@@ -10,7 +10,7 @@ import QueryInput from './components/QueryInput';
 import HistoryPanel from './components/HistoryPanel';
 import './globals.css';
 
-// We'll bundle our queries into a single conversation object for the history panel
+
 interface Conversation {
     id: string;
     items: HistoryItem[];
