@@ -1,4 +1,4 @@
-
+// your_project_name/frontend/app/page.tsx
 'use client';
 
 import { useState, useRef, useEffect, useCallback } from 'react';
@@ -17,9 +17,9 @@ interface Conversation {
     title: string;
 }
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 export default function App() {
+    const API_URL = process.env.NEXT_PUBLIC_API_URL;
     const [query, setQuery] = useState('');
     const [responses, setResponses] = useState<HistoryItem[]>([]);
     const [loading, setLoading] = useState(false);
@@ -49,7 +49,7 @@ export default function App() {
     const fetchHistory = useCallback(async (id: string) => {
         if (!id) return;
         try {
-            const response = await fetch(`${API_URL}/api/v1/history/${id}`);
+            const response = await fetch(`https://llm-test-ji0f.onrender.com/api/v1/history/${id}`);
             if (!response.ok) {
                 throw new Error('Failed to fetch history');
             }
@@ -114,7 +114,7 @@ export default function App() {
         setError(null);
 
         try {
-            const res = await fetch(`${API_URL}/api/v1/query`, {
+            const res = await fetch(`https://llm-test-ji0f.onrender.com/api/v1/query`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ query: userQuery.query, user_id: userId, session_id: userQuery.session_id }),
@@ -189,4 +189,3 @@ export default function App() {
         </div>
     );
 }
-
