@@ -17,6 +17,8 @@ interface Conversation {
     title: string;
 }
 
+const API_URL = process.env.NEXT_PUBLIC_API_URL;
+
 export default function App() {
     const [query, setQuery] = useState('');
     const [responses, setResponses] = useState<HistoryItem[]>([]);
@@ -47,7 +49,7 @@ export default function App() {
     const fetchHistory = useCallback(async (id: string) => {
         if (!id) return;
         try {
-            const response = await fetch(`/api/v1/history/${id}`);
+            const response = await fetch(`${API_URL}/api/v1/history/${id}`);
             if (!response.ok) {
                 throw new Error('Failed to fetch history');
             }
@@ -63,9 +65,9 @@ export default function App() {
                 groupedHistory[sessionId].push(item);
             });
 
-            // Convert to Conversation objects
+            
             const newConversations = Object.entries(groupedHistory).map(([id, items]) => {
-                // Sort by timestamp to get the first query for the title
+                
                 const sortedItems = items.sort((a, b) => new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime());
                 const firstQuery = sortedItems[0]?.query || 'New Chat';
                 return {
@@ -112,7 +114,7 @@ export default function App() {
         setError(null);
 
         try {
-            const res = await fetch('/api/v1/query', {
+            const res = await fetch('${API_URL}/api/v1/query', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ query: userQuery.query, user_id: userId, session_id: userQuery.session_id }),
