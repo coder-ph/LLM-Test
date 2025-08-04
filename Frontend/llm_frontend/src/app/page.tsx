@@ -49,7 +49,7 @@ export default function App() {
     const fetchHistory = useCallback(async (id: string) => {
         if (!id) return;
         try {
-            const response = await fetch(`/api/v1/history/${id}`);
+            const response = await fetch(`${API_URL}/api/v1/history/${id}`);
             console.log("response",response)
             
             if (!response.ok) {
@@ -118,7 +118,7 @@ export default function App() {
         setError(null);
 
         try {
-            const res = await fetch(`/api/v1/query`, {
+            const res = await fetch(`${API_URL}/api/v1/query`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ query: userQuery.query, user_id: userId, session_id: userQuery.session_id }),
