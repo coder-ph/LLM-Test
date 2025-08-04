@@ -10,13 +10,11 @@ import QueryInput from './components/QueryInput';
 import HistoryPanel from './components/HistoryPanel';
 import './globals.css';
 
-
 interface Conversation {
     id: string;
     items: HistoryItem[];
     title: string;
 }
-
 
 export default function App() {
     const API_URL = process.env.NEXT_PUBLIC_API_URL;
