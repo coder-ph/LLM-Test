@@ -41,7 +41,7 @@ const Header = ({ onHistoryClick, onNewChatClick, isHistoryOpen }: HeaderProps) 
                         className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors hidden md:block"
                         aria-label="Open history"
                     >
-                        <History className="w-6 h-6" />
+                        
                     </button>
                 </div>
             </div>

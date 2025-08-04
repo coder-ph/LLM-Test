@@ -23,7 +23,7 @@ const QueryInput = ({ query, setQuery, onSubmit, loading }: QueryInputProps) => 
                                 onSubmit(e);
                             }
                         }}
-                        className="flex-1 resize-none p-3 border dark:border-gray-700 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white transition-colors duration-300 placeholder-gray-400"
+                        className=" ml-30 flex-1 resize-none p-3 border dark:border-gray-700 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white transition-colors duration-300 placeholder-gray-400"
                         placeholder="Ask me anything..."
                         rows={1}
                         disabled={loading}
@@ -32,7 +32,7 @@ const QueryInput = ({ query, setQuery, onSubmit, loading }: QueryInputProps) => 
                         type="submit"
                         disabled={loading || !query.trim()}
                         className={classNames(
-                            'p-3 rounded-full text-white transition-all duration-300',
+                            'p-3 rounded-full text-white transition-all duration-300 mr-20',
                             {
                                 'bg-blue-600 hover:bg-blue-700 focus:ring-2 focus:ring-blue-500': !loading && query.trim(),
                                 'bg-gray-400 dark:bg-gray-600 cursor-not-allowed': loading || !query.trim(),

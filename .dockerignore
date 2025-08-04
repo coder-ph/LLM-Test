@@ -1,6 +1,9 @@
-node_modules
-.next
 .git
-*.md
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+.env
+venv
 Dockerfile
-.dockerignore
+docker-compose.yml

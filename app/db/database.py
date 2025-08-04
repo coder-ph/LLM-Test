@@ -1,6 +1,5 @@
-
-from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession, async_sessionmaker
-from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.ext.asyncio import create_async_engine, async_sessionmaker
+from sqlalchemy.orm import declarative_base
 from sqlalchemy.pool import NullPool
 from app.core.config import settings
 import logging
@@ -13,16 +12,12 @@ engine = create_async_engine(
     settings.DATABASE_URL,
     connect_args={"ssl": "require"},
     echo=True,
-    poolclass=NullPool,
-    future = True
+    poolclass=NullPool
 )
 
 AsyncSessionLocal = async_sessionmaker(
-    autocommit=False,
-    autoflush=False,
     bind=engine,
-    class_=AsyncSession,
-    expire_on_commit=False 
+    expire_on_commit=False
 )
 
 async def init_db():

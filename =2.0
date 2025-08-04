@@ -1,0 +1,12 @@
+Collecting sqlalchemy
+  Using cached sqlalchemy-2.0.42-cp313-cp313-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (9.6 kB)
+Collecting greenlet>=1 (from sqlalchemy)
+  Using cached greenlet-3.2.3-cp313-cp313-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl.metadata (4.1 kB)
+Collecting typing-extensions>=4.6.0 (from sqlalchemy)
+  Using cached typing_extensions-4.14.1-py3-none-any.whl.metadata (3.0 kB)
+Using cached sqlalchemy-2.0.42-cp313-cp313-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (3.3 MB)
+Using cached greenlet-3.2.3-cp313-cp313-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl (608 kB)
+Using cached typing_extensions-4.14.1-py3-none-any.whl (43 kB)
+Installing collected packages: typing-extensions, greenlet, sqlalchemy
+
+Successfully installed greenlet-3.2.3 sqlalchemy-2.0.42 typing-extensions-4.14.1
