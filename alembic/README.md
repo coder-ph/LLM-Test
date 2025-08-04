@@ -5,6 +5,14 @@ This is a modern, interactive full-stack web application that serves as an AI-po
 
 The application is built to be robust and scalable, demonstrating best practices in full-stack development, API design, and containerization.
 
+## Live Deployment
+
+The frontend is currently deployed on Railway and can be accessed at:  
+🔗 [https://llm-frontend-production-cf23.up.railway.app/](https://llm-frontend-production-cf23.up.railway.app/)
+
+The backend API is hosted separately on Render at:  
+🔗 [https://llm-app-latest.onrender.com](https://llm-app-latest.onrender.com)
+
 ## Features
 - **Interactive Web Interface**: A clean, minimalist, and fully responsive user interface built with Next.js and styled with TailwindCSS.
 - **Real-time AI Responses**: User queries are sent to a live LLM and responses are displayed in real-time.
@@ -43,8 +51,6 @@ To get the application up and running locally, you need to have Docker and Docke
 This file defines all the services (backend, frontend, database) and how they communicate.
 
 ```yaml
-
-
 services:
   db:
     image: postgres:16-alpine

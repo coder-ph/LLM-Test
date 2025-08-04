@@ -27,8 +27,9 @@ origins = [
     "http://127.0.0.1:3000",
     "http://frontend:3000",  
     "http://app:8000",
-    "https://llm-frontend-production-cf23.up.railway.app/"
-    ""
+    "https://llm-frontend-production-cf23.up.railway.app/",
+    "https://llm-test-git-main-coder-phs-projects.vercel.app/",
+    "llm-test-git-main-coder-phs-projects.vercel.app"
 ]
 
 app.add_middleware(
